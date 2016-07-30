@@ -1,12 +1,12 @@
-package main.java.agents.pathplanner;
+package agents.pathplanner;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 
-import main.java.agents.ProgressState;
-import main.java.agents.UWMobileAgent;
-import main.java.pathplanning.LawnMoverLearning;
+import agents.ProgressState;
+import agents.UWMobileAgent;
+import pathplanning.LawnMoverLearning;
 import yaes.sensornetwork.model.SensorNode;
 import yaes.world.physical.path.PPMTraversal;
 import yaes.world.physical.path.PlannedPath;

@@ -1,4 +1,4 @@
-package main.java.pathplanning;
+package pathplanning;
 
 import java.util.ArrayList;
 import java.util.Stack;

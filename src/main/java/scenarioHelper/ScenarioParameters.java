@@ -1,6 +1,6 @@
-package main.java.scenarioHelper;
+package scenarioHelper;
 
-import main.java.underwater.UWConstants;
+import underwater.UWConstants;
 import yaes.framework.simulation.SimulationInput;
 import yaes.sensornetwork.constSensorNetwork;
 

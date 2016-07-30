@@ -1,9 +1,9 @@
-package main.java.underwater;
+package underwater;
 
 import java.io.Serializable;
 import java.util.Iterator;
 
-import main.java.agents.UWAgent;
+import agents.UWAgent;
 import yaes.framework.agent.ACLMessage;
 import yaes.framework.simulation.IContext;
 import yaes.framework.simulation.ISimulationCode;

@@ -1,4 +1,4 @@
-package main.java.agents.pathplanner;
+package agents.pathplanner;
 
 import java.util.AbstractMap;
 import java.util.ArrayList;
@@ -8,10 +8,10 @@ import java.util.Map;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
-import main.java.pathplanning.Learning.Action;
-import main.java.agents.ProgressState;
-import main.java.agents.UWMobileAgent;
-import main.java.pathplanning.QLearning;
+import pathplanning.Learning.Action;
+import agents.ProgressState;
+import agents.UWMobileAgent;
+import pathplanning.QLearning;
 import yaes.sensornetwork.model.SensorNode;
 import yaes.world.physical.location.Location;
 import yaes.world.physical.path.PPMTraversal;

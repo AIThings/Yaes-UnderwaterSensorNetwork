@@ -22,7 +22,7 @@
  *  THE SOFTWARE.
  */
 
-package main.java.sensorutils;
+package sensorutils;
 
 /**
  * This class determines the parameters of the floating point representation on

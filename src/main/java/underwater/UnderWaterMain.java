@@ -1,4 +1,4 @@
-package main.java.underwater;
+package underwater;
 
 import java.awt.Toolkit;
 import java.io.File;
@@ -7,7 +7,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import main.java.scenarioHelper.ScenarioParameters;
+import scenarioHelper.ScenarioParameters;
 import yaes.Version;
 import yaes.framework.simulation.Simulation;
 import yaes.framework.simulation.SimulationInput;

@@ -1,4 +1,4 @@
-package main.java.pathplanning;
+package pathplanning;
 
 import java.io.Serializable;
 import java.util.AbstractMap;
@@ -12,8 +12,8 @@ import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
-import main.java.agents.ProgressState;
-import main.java.underwater.UWConstants;
+import agents.ProgressState;
+import underwater.UWConstants;
 import yaes.sensornetwork.agents.AbstractSensorAgent;
 import yaes.sensornetwork.model.SensorNode;
 

@@ -1,6 +1,6 @@
-package main.java.sensorutils;
+package sensorutils;
 
-import main.java.underwater.UWConstants;
+import underwater.UWConstants;
 import yaes.world.physical.environment.EnvironmentModel;
 import yaes.world.physical.location.Location;
 import yaes.world.physical.map.IAccessibilityChecker;

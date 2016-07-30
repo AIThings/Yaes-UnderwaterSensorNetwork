@@ -22,7 +22,7 @@
  *  THE SOFTWARE.
  */
 
-package main.java.sensorutils;
+package sensorutils;
 
 import java.util.Collection;
 import java.util.Collections;

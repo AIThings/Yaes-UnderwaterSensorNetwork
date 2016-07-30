@@ -1,4 +1,4 @@
-package main.java.sensorutils;
+package sensorutils;
 
 /*
  * Copyright (c) 1998-2002 Carnegie Mellon University.  All rights

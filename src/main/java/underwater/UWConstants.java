@@ -1,4 +1,4 @@
-package main.java.underwater;
+package underwater;
 
 import java.io.File;
 

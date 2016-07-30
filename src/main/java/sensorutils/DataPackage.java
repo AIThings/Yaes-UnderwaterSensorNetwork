@@ -1,4 +1,4 @@
-package main.java.sensorutils;
+package sensorutils;
 
 public class DataPackage {
 

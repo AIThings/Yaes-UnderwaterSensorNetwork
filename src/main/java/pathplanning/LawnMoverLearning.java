@@ -1,4 +1,4 @@
-package main.java.pathplanning;
+package pathplanning;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -6,8 +6,8 @@ import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.Set;
 
-import main.java.agents.ProgressState;
-import main.java.underwater.UWConstants;
+import agents.ProgressState;
+import underwater.UWConstants;
 import yaes.sensornetwork.agents.AbstractSensorAgent;
 import yaes.sensornetwork.model.SensorNode;
 

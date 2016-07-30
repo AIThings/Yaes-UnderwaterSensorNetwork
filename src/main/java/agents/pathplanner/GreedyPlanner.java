@@ -1,12 +1,12 @@
-package main.java.agents.pathplanner;
+package agents.pathplanner;
 
 import java.util.Comparator;
 import java.util.Map;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
-import main.java.agents.UWAgent;
-import main.java.agents.UWMobileAgent;
+import agents.UWAgent;
+import agents.UWMobileAgent;
 import yaes.world.physical.location.Location;
 import yaes.world.physical.path.PPMGenerator;
 import yaes.world.physical.path.PPMTraversal;

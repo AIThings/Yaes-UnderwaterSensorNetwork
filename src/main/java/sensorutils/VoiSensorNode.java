@@ -1,4 +1,4 @@
-package main.java.sensorutils;
+package sensorutils;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,12 +1,12 @@
-package main.java.pathplanning;
+package pathplanning;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import main.java.agents.ProgressState;
-import main.java.agents.UWAgent;
+import agents.ProgressState;
+import agents.UWAgent;
 import yaes.sensornetwork.agents.AbstractSensorAgent;
 import yaes.sensornetwork.agents.SensorRoutingHelper;
 import yaes.sensornetwork.model.SensorNode;

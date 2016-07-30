@@ -1,4 +1,4 @@
-package main.java.scenarioHelper;
+package scenarioHelper;
 
 import java.awt.Color;
 import java.util.List;

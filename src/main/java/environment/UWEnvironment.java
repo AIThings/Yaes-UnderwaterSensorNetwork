@@ -1,4 +1,4 @@
-package main.java.environment;
+package environment;
 
 import java.awt.Shape;
 import java.awt.geom.Rectangle2D;
@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import main.java.agents.UWAgent;
+import agents.UWAgent;
 import yaes.sensornetwork.Environment;
 import yaes.sensornetwork.model.SensorNetworkWorld;
 import yaes.sensornetwork.model.SensorNode;

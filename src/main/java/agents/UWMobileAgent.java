@@ -1,16 +1,16 @@
-package main.java.agents;
+package agents;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 
-import main.java.agents.pathplanner.GreedyPlanner;
-import main.java.agents.pathplanner.iAgentPathPlanner;
-import main.java.pathplanning.DStarLitePP;
-import main.java.pathplanning.Learning.Action;
-import main.java.underwater.UWConstants;
-import main.java.underwater.UWContext;
+import agents.pathplanner.GreedyPlanner;
+import agents.pathplanner.iAgentPathPlanner;
+import pathplanning.DStarLitePP;
+import pathplanning.Learning.Action;
+import underwater.UWConstants;
+import underwater.UWContext;
 import yaes.framework.agent.ACLMessage;
 import yaes.sensornetwork.agents.AbstractSensorAgent;
 import yaes.sensornetwork.model.Perception;

@@ -1,4 +1,4 @@
-package main.java.underwater;
+package underwater;
 
 import java.awt.Color;
 import java.io.File;
@@ -10,14 +10,14 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Random;
 
-import main.java.agents.UWAgent;
-import main.java.agents.UWMobileAgent;
-import main.java.environment.MapLocationAccessibility;
-import main.java.environment.UWEnvironment;
-import main.java.environment.UWPaintNoEntryArea;
-import main.java.environment.UWPaintNode;
-import main.java.multiAUVpathplanning.GeneticAlgorithm;
-import main.java.scenarioHelper.V2CHeatmap;
+import agents.UWAgent;
+import agents.UWMobileAgent;
+import environment.MapLocationAccessibility;
+import environment.UWEnvironment;
+import environment.UWPaintNoEntryArea;
+import environment.UWPaintNode;
+import multiAUVpathplanning.GeneticAlgorithm;
+import scenarioHelper.V2CHeatmap;
 import yaes.framework.algorithm.search.IHeuristic;
 import yaes.framework.simulation.AbstractContext;
 import yaes.framework.simulation.SimulationInput;

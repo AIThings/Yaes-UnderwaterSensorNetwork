@@ -1,6 +1,6 @@
-package main.java.environment;
+package environment;
 
-import main.java.underwater.UWContext;
+import underwater.UWContext;
 import yaes.world.physical.environment.EnvironmentModel;
 import yaes.world.physical.location.Location;
 import yaes.world.physical.map.IAccessibilityChecker;

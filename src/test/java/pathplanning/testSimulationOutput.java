@@ -1,4 +1,4 @@
-package test.java.pathplanning;
+package pathplanning;
 
 import org.junit.Test;
 

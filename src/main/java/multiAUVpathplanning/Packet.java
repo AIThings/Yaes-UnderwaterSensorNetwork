@@ -1,4 +1,4 @@
-package main.java.multiAUVpathplanning;
+package multiAUVpathplanning;
 
 public class Packet {
 
@@ -37,7 +37,6 @@ public class Packet {
     public void SetVoIInitialMagnitude(double Mag) {
         VoIInitialMagnitude = Mag;
     }
-
     public void SetVoIDecay(double Dec) {
         VoIDecay = Dec;
     }

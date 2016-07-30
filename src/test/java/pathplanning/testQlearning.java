@@ -1,4 +1,4 @@
-package test.java.pathplanning;
+package pathplanning;
 
 
 
@@ -11,11 +11,11 @@ import java.util.SortedSet;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
-import jdk.nashorn.internal.ir.annotations.Ignore;
-import main.java.agents.ProgressState;
-import main.java.pathplanning.Learning.Action;
+import agents.ProgressState;
+import pathplanning.Learning.Action;
 import yaes.ui.text.TextUi;
 import yaes.world.physical.location.Location;
 

@@ -1,8 +1,8 @@
-package main.java.agents.pathplanner;
+package agents.pathplanner;
 
 import java.util.Random;
 
-import main.java.agents.UWMobileAgent;
+import agents.UWMobileAgent;
 import yaes.world.physical.path.PPMGenerator;
 import yaes.world.physical.path.PPMTraversal;
 import yaes.world.physical.path.PlannedPath;

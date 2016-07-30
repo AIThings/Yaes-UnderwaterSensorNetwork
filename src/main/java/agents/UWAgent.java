@@ -1,10 +1,10 @@
-package main.java.agents;
+package agents;
 
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 
-import main.java.underwater.UWMessage;
+import underwater.UWMessage;
 import yaes.framework.agent.ACLMessage;
 import yaes.sensornetwork.agents.AbstractSensorAgent;
 import yaes.sensornetwork.model.Perception;

@@ -1,6 +1,6 @@
-package main.java.agents.pathplanner;
+package agents.pathplanner;
 
-import main.java.agents.UWMobileAgent;
+import agents.UWMobileAgent;
 import yaes.world.physical.location.Location;
 import yaes.world.physical.path.PPMTraversal;
 import yaes.world.physical.path.PlannedPath;

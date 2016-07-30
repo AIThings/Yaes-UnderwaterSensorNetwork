@@ -1,12 +1,12 @@
-package main.java.pathplanning;
+package pathplanning;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import main.java.sensorutils.DStarLite;
-import main.java.sensorutils.MapLocationAccessibility;
+import sensorutils.DStarLite;
+import sensorutils.MapLocationAccessibility;
 import yaes.world.physical.environment.EnvironmentModel;
 import yaes.world.physical.location.Location;
 import yaes.world.physical.path.PlannedPath;

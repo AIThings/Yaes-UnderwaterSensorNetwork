@@ -1,4 +1,4 @@
-package main.java.multiAUVpathplanning;
+package multiAUVpathplanning;
 
 //import java.io.FileNotFoundException;
 import java.io.FileWriter;

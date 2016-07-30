@@ -1,10 +1,10 @@
-package main.java;
+package underwater;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 
-import main.java.underwater.UWConstants;
+import underwater.UWConstants;
 
 public class ResourceHelper {
     /**

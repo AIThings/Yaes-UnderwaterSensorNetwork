@@ -1,4 +1,4 @@
-package main.java.pathplanning;
+package pathplanning;
 
 import yaes.sensornetwork.agents.AbstractSensorAgent;
 import yaes.sensornetwork.model.SensorNode;

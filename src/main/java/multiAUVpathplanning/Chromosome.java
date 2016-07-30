@@ -1,4 +1,4 @@
-package main.java.multiAUVpathplanning;
+package multiAUVpathplanning;
 
 import java.util.ArrayList;
 import java.util.Random;
