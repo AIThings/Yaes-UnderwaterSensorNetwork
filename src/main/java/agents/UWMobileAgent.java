@@ -44,7 +44,7 @@ public class UWMobileAgent extends AbstractSensorAgent
     private Random rand;
     protected PPMTraversal ppmtraversal;
 
-    private LearningMethod method;
+    private LearningMethod method = LearningMethod.LAWNMOVER;
     private double VoI;
     SensorNode src = getSensorWorld().getSensorNodes().get(0);
     SensorNode dest = getSensorWorld().getSensorNodes()

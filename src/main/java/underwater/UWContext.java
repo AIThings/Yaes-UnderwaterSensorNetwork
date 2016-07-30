@@ -416,11 +416,7 @@ public class UWContext extends AbstractContext implements UWConstants, Serializa
 	 */
 	private EnvironmentModel createEM(String obstacleMapFile, String backgroundMapFile, String backgroundColoredMapFile)
 			throws URISyntaxException {
-		URL url = this.getClass().getClassLoader().getResource(obstacleMapFile);
-		InputStream is = ClassLoader.getSystemClassLoader().getResourceAsStream(obstacleMapFile);
-		System.out.println(url.getPath());
-
-		File fileObstacles = new File(ClassLoader.getSystemClassLoader().getResource("/" + obstacleMapFile).toURI());
+		File fileObstacles = new File(ClassLoader.getSystemClassLoader().getResource(obstacleMapFile).toURI());
 		LinearColorToValue lctv = new LinearColorToValue(0, 100);
 
 		EnvironmentModel retval = new EnvironmentModel("TheModel", 0, 0, sip.getParameterInt(MAP_WIDTH),
@@ -431,7 +427,8 @@ public class UWContext extends AbstractContext implements UWConstants, Serializa
 		retval.loadDataFromImage(PROP_OBSTACLE, fileObstacles, lctv);
 
 		if (backgroundColoredMapFile != null) {
-			File fileBackground = new File(this.getClass().getResource(backgroundColoredMapFile).toURI());
+			File fileBackground = new File(
+					ClassLoader.getSystemClassLoader().getResource(backgroundColoredMapFile).toURI());
 			try {
 				retval.loadBackgroundImage(fileBackground);
 			} catch (IOException ioex) {
