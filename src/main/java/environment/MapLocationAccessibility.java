@@ -8,14 +8,13 @@ import yaes.world.physical.map.IMap;
 
 public class MapLocationAccessibility implements IAccessibilityChecker {
 
-    public boolean isAccessible(IMap imap, Location location) {
-        EnvironmentModel environment = (EnvironmentModel) imap;
-        if (Double.valueOf(
-                (String) environment.getPropertyAt(UWContext.PROP_OBSTACLE,
-                        location.getX(), location.getY())) > 0) {
-            return false;
-        }
-        return true;
-    }
+	public boolean isAccessible(IMap imap, Location location) {
+		EnvironmentModel environment = (EnvironmentModel) imap;
+		String obstacleVal = environment.getPropertyAt(UWContext.PROP_OBSTACLE, location.getX(), location.getY()).toString();
+		if (Double.valueOf(obstacleVal) > 0) {
+			return false;
+		}
+		return true;
+	}
 
 }
