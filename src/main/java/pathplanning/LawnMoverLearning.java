@@ -14,10 +14,11 @@ import underwater.UWConstants;
 import underwater.UWContext;
 import yaes.sensornetwork.agents.AbstractSensorAgent;
 import yaes.sensornetwork.model.SensorNode;
+import yaes.world.physical.location.Location;
 
 public class LawnMoverLearning extends Learning implements Serializable, UWConstants {
 	private static final long serialVersionUID = 1L;
-	private final Logger slf4jLogger = LoggerFactory.getLogger(UWContext.class);
+	private final static Logger slf4jLogger = LoggerFactory.getLogger(UWContext.class);
 	private ProgressState initialState_;
 	private ProgressState goalState_;
 	private Set<ProgressState> closedSet;
@@ -37,27 +38,30 @@ public class LawnMoverLearning extends Learning implements Serializable, UWConst
 		HashMap<Action, ProgressState> priorityList = new HashMap<Action, ProgressState>();
 		closedSet.add(initialState_); /// add current state to the closedSet
 		ProgressState currentState = initialState_;
+		
 		do {
+			ProgressState oldState = currentState;
 			for (ProgressState neighborState : this.getNeighborStateList(currentState)) {
+				
 				// if the neighbor node has already been visited then do not
 				// visit it again
 				if (closedSet.contains(neighborState))
 					continue;
 				double deltaX = currentState.getLocation().getX() - neighborState.getLocation().getX();
 				double deltaY = currentState.getLocation().getY() - neighborState.getLocation().getY();
-				/**
-				 * Assign the priority movement according the N, E, S, W
-				 */
 				if (deltaX < 0)
-					priorityList.put(Action.EAST, neighborState);
-				else if (deltaX > 0)
 					priorityList.put(Action.WEST, neighborState);
+				else if (deltaX > 0)
+					priorityList.put(Action.EAST, neighborState);
 				else if (deltaY < 0)
 					priorityList.put(Action.SOUTH, neighborState);
 				else if (deltaY > 0)
 					priorityList.put(Action.NORTH, neighborState);
 			}
-
+			/**
+			 * Assign the priority movement according the N, E, S, W
+			 */
+			
 			if (priorityList.containsKey(Action.SOUTH)) {
 				navigatedStateMap.put(priorityList.get(Action.SOUTH), currentState);
 				currentState = priorityList.get(Action.SOUTH);
@@ -71,10 +75,18 @@ public class LawnMoverLearning extends Learning implements Serializable, UWConst
 				navigatedStateMap.put(priorityList.get(Action.WEST), currentState);
 				currentState = priorityList.get(Action.WEST);
 			}
+			if (oldState.equals(currentState)){
+//				navigatedStateMap.put(priorityList.get(Action.WEST), currentState);
+//				currentState.setLocation(new Location(287, 185));
+//				ProgressState hackedState = new ProgressState("S-Hacked- ", new Location(287, 185));
+//				navigatedStateMap.put(priorityList.get(Action.NORTH), currentState);
+//				currentState = hackedState;				
+				break;
+			}
 			closedSet.add(currentState);
 			priorityList.clear();
 			slf4jLogger.info("Next movement is ... " + currentState.toString());
-
+			
 		} while (!currentState.equals(goalState_));
 		slf4jLogger
 				.info("Path planner for lawn mover has completed its initialization for all states (locations) ... ");

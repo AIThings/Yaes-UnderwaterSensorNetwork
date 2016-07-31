@@ -38,7 +38,7 @@ import yaes.world.physical.path.PlannedPath;
 public class UWMobileAgent extends AbstractSensorAgent
     implements UWConstants, Serializable {
     private static final long serialVersionUID = 1L;
-    private final Logger slf4jLogger = LoggerFactory.getLogger(UWContext.class);
+    private final static Logger slf4jLogger = LoggerFactory.getLogger(UWContext.class);
     private iAgentPathPlanner pathplanner;
     private Location startLocation;
     private Location localDestination;

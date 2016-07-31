@@ -21,7 +21,8 @@ import yaes.world.physical.path.ProgrammedPathMovement;
  *
  */
 public class GreedyPlanner implements iAgentPathPlanner, Serializable{
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -1L;
+	
     private SortedSet<Map.Entry<UWAgent, Double>> voiStateMap =
             new TreeSet<Map.Entry<UWAgent, Double>>(
                     new Comparator<Map.Entry<UWAgent, Double>>() {
@@ -34,7 +35,7 @@ public class GreedyPlanner implements iAgentPathPlanner, Serializable{
     @Override
     public PPMTraversal planPath(UWMobileAgent agent, PlannedPath plannedpath) {
         Location localDestination =
-                this.voiStateMap.first().getKey().getNode().getLocation();
+                agent.getLocalDestination();
         double speed = agent.getSinkSpeed();
         double speedStdDev = 0.0;
         ProgrammedPathMovement ppm = PPMGenerator.followPathWithConstantSpeed(

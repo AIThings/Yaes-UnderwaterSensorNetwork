@@ -28,12 +28,15 @@ public class LawnMowerPlanner implements iAgentPathPlanner, Serializable {
 		SensorNode src = null;
 		SensorNode dest = null;
 		int sensorNodeCount = agent.getSensorWorld().getSensorNodes().size();
-		for (SensorNode node : agent.getSensorWorld().getSensorNodes()) {
+		for (int counter = 0; counter < sensorNodeCount - 1; counter++) {
+			SensorNode node = agent.getSensorWorld().getSensorNodes().get(counter);
 			if (node.isEnabled()) {
 				src = node;
 				break;
 			}
 		}
+		
+		src = agent.getSensorWorld().getSensorNodes().get(12);
 		
 		for (int counter = 1; counter < sensorNodeCount - 1; counter++) {
 			SensorNode node = agent.getSensorWorld().getSensorNodes().get(sensorNodeCount - counter);
@@ -43,19 +46,19 @@ public class LawnMowerPlanner implements iAgentPathPlanner, Serializable {
 			}
 		}
 
+		dest = agent.getSensorWorld().getSensorNodes().get(99);
+		
 		LawnMoverLearning learning = new LawnMoverLearning(agent, src, dest);
 		HashMap<ProgressState, ProgressState> pathMap = learning.returnStatePath();
 		ArrayList<ProgressState> path = new ArrayList<ProgressState>();
 
-		// backtraverse from goal to start node
-		ProgressState s = new ProgressState(dest.getName(), dest.getLocation());
-		path.add(s);
-		do {
-			path.add(pathMap.get(path.get(path.size() - 1)));
-		} while (pathMap.get(path.get(path.size() - 1)).getStateName() != src.getName());
-
 		path.add(new ProgressState(src.getName(), src.getLocation()));
-		Collections.reverse(path);
+
+		pathMap.forEach((k, v) -> {
+			path.add(k);
+		});
+
+		// Collections.reverse(path);
 		// path.addAll(pathMap.values());
 		for (ProgressState state : path)
 			if (!(state == null))
