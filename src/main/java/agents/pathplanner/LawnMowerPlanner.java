@@ -25,10 +25,23 @@ public class LawnMowerPlanner implements iAgentPathPlanner, Serializable {
 
 	@Override
 	public PPMTraversal planPath(UWMobileAgent agent, PlannedPath plannedpath) {
-
-		SensorNode src = agent.getSensorWorld().getSensorNodes().get(0);
-		SensorNode dest = agent.getSensorWorld().getSensorNodes()
-				.get(agent.getSensorWorld().getSensorNodes().size() - 1);
+		SensorNode src = null;
+		SensorNode dest = null;
+		int sensorNodeCount = agent.getSensorWorld().getSensorNodes().size();
+		for (SensorNode node : agent.getSensorWorld().getSensorNodes()) {
+			if (node.isEnabled()) {
+				src = node;
+				break;
+			}
+		}
+		
+		for (int counter = 1; counter < sensorNodeCount - 1; counter++) {
+			SensorNode node = agent.getSensorWorld().getSensorNodes().get(sensorNodeCount - counter);
+			if (node.isEnabled()) {
+				dest = node;
+				break;
+			}
+		}
 
 		LawnMoverLearning learning = new LawnMoverLearning(agent, src, dest);
 		HashMap<ProgressState, ProgressState> pathMap = learning.returnStatePath();
@@ -53,6 +66,7 @@ public class LawnMowerPlanner implements iAgentPathPlanner, Serializable {
 		ProgrammedPathMovement ppm = new ProgrammedPathMovement();
 		ppm.addSetLocation(plannedpath.getLocationAt(0));
 		ppm.addFollowPath(agent.getPlannedPath(), agent.getSinkSpeed());
+
 		return new PPMTraversal(ppm, 0);
 	}
 

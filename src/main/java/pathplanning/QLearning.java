@@ -113,19 +113,19 @@ public class QLearning extends Learning implements UWConstants, Serializable {
                 if (deltaX > 0)
                     retValentry =
                             new AbstractMap.SimpleEntry<ProgressState, Action>(
-                                    entry.getKey(), Action.RIGHT);
+                                    entry.getKey(), Action.EAST);
                 else if (deltaX < 0)
                     retValentry =
                             new AbstractMap.SimpleEntry<ProgressState, Action>(
-                                    entry.getKey(), Action.LEFT);
+                                    entry.getKey(), Action.WEST);
                 else if (deltaY > 0)
                     retValentry =
                             new AbstractMap.SimpleEntry<ProgressState, Action>(
-                                    entry.getKey(), Action.DOWN);
+                                    entry.getKey(), Action.SOUTH);
                 else if (deltaY < 0)
                     retValentry =
                             new AbstractMap.SimpleEntry<ProgressState, Action>(
-                                    entry.getKey(), Action.UP);
+                                    entry.getKey(), Action.NORTH);
 
                 this.getRTable().put(retValentry, 100.0);
 
@@ -250,16 +250,16 @@ public class QLearning extends Learning implements UWConstants, Serializable {
         for (AbstractSensorAgent neighbor : neighbors) {
             if (neighbor.getNode().getLocation().getX() > agent.getState()
                     .getLocation().getX())
-                neighborActionTable.put(Action.RIGHT, neighbor);
+                neighborActionTable.put(Action.EAST, neighbor);
             if (neighbor.getNode().getLocation().getX() < agent.getState()
                     .getLocation().getX())
-                neighborActionTable.put(Action.LEFT, neighbor);
+                neighborActionTable.put(Action.WEST, neighbor);
             if (neighbor.getNode().getLocation().getY() > agent.getState()
                     .getLocation().getY())
-                neighborActionTable.put(Action.DOWN, neighbor);
+                neighborActionTable.put(Action.SOUTH, neighbor);
             if (neighbor.getNode().getLocation().getY() < agent.getState()
                     .getLocation().getY())
-                neighborActionTable.put(Action.UP, neighbor);
+                neighborActionTable.put(Action.NORTH, neighbor);
         }
 
         return neighborActionTable;

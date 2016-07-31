@@ -36,7 +36,7 @@ public class ScenarioParameters implements UWConstants, constSensorNetwork {
         model.setParameter(constSensorNetwork.SensorDeployment_SensorRange,
                 70.0);
         model.setParameter(
-                constSensorNetwork.SensorDeployment_TransmissionRange, 70.0); // for
+                constSensorNetwork.SensorDeployment_TransmissionRange, 150.0); // for
                                                                                // 100
                                                                                // nodes
                                                                                // keep
@@ -68,7 +68,7 @@ public class ScenarioParameters implements UWConstants, constSensorNetwork {
      */
     public static void setSensorNodeParams(SimulationInput model) {
         model.setParameter(DECAYTIME, 0.1);
-        model.setParameter(SINK_SPEED, 1.0);
+        model.setParameter(SINK_SPEED, 2.0);
         model.setParameter(CONTINUOUS_SAMPLING, 1);
         model.setParameter(NUM_HOTSPOTS, 5);
     }

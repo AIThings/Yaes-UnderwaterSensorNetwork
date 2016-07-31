@@ -79,26 +79,26 @@ public class testQlearning {
                                 return 1;
                             }
                         });
-        Action action = Action.DOWN;
+        Action action = Action.SOUTH;
         ProgressState state = new ProgressState("S1", new Location(0, 0));
         Map.Entry<ProgressState, Action> retValentry =
                 new AbstractMap.SimpleEntry<ProgressState, Action>(state,
                         action);
         QTable.put(retValentry, 10.0);
 
-        action = Action.UP;
+        action = Action.NORTH;
         retValentry = new AbstractMap.SimpleEntry<ProgressState, Action>(state,
                 action);
         QTable.put(retValentry, 10.0);
 
-        action = Action.RIGHT;
+        action = Action.EAST;
         retValentry = new AbstractMap.SimpleEntry<ProgressState, Action>(state,
                 action);
         QTable.put(retValentry, 10.0);
         QTable.put(retValentry, 20.0);
         QTable.put(retValentry, 30.0);
 
-        action = Action.UP;
+        action = Action.NORTH;
 
         ProgressState state2 = new ProgressState("S1", new Location(0, 0));
         Map.Entry<ProgressState, Action> retValentry2 =

@@ -5,12 +5,16 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import agents.pathplanner.AStarPlanner;
 import agents.pathplanner.GreedyPlanner;
 import agents.pathplanner.LawnMowerPlanner;
 import agents.pathplanner.QLearningPlanner;
 import agents.pathplanner.RandomPlanner;
 import agents.pathplanner.iAgentPathPlanner;
+import environment.UWEnvironment;
 import pathplanning.DStarLitePP;
 import pathplanning.Learning.Action;
 import underwater.UWConstants;
@@ -34,6 +38,7 @@ import yaes.world.physical.path.PlannedPath;
 public class UWMobileAgent extends AbstractSensorAgent
     implements UWConstants, Serializable {
     private static final long serialVersionUID = 1L;
+    private final Logger slf4jLogger = LoggerFactory.getLogger(UWContext.class);
     private iAgentPathPlanner pathplanner;
     private Location startLocation;
     private Location localDestination;
@@ -96,6 +101,7 @@ public class UWMobileAgent extends AbstractSensorAgent
         }
         
         ppmtraversal = this.pathplanner.planPath(this, plannedpath);
+        slf4jLogger.info("Traversed path information is " + ppmtraversal.toString() );
     }
     
     /**
@@ -149,7 +155,7 @@ public class UWMobileAgent extends AbstractSensorAgent
             Location initialLoc =
                     new Location(this.getRand().nextInt(UWContext.mapWidth),
                             this.getRand().nextInt(UWContext.mapHeight));
-            while (UWContext.isLocationOccupied(initialLoc,
+            while (UWEnvironment.isLocationOccupied(initialLoc,
                     UWContext.emGlobalCost, UWContext.PROP_OBSTACLE))
                 initialLoc =
                         new Location(this.getRand().nextInt(UWContext.mapWidth),

@@ -8,7 +8,12 @@ import java.io.Serializable;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Random;
+import java.util.Set;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import agents.UWAgent;
 import agents.UWMobileAgent;
@@ -37,7 +42,6 @@ import yaes.ui.visualization.painters.IPainter;
 import yaes.ui.visualization.painters.IValueToColor;
 import yaes.ui.visualization.painters.paintEnvironmentModel;
 import yaes.ui.visualization.painters.paintMobileNode;
-import yaes.util.ClassResourceHelper;
 import yaes.world.physical.environment.EnvironmentModel;
 import yaes.world.physical.environment.LinearColorToValue;
 import yaes.world.physical.location.IMoving;
@@ -56,7 +60,8 @@ import yaes.world.physical.pathplanning.DistanceHeuristic;
  *
  */
 public class UWContext extends AbstractContext implements UWConstants, Serializable {
-	private static final long serialVersionUID = -839305508680488108L;
+	private static final long serialVersionUID = -1L;
+    private final Logger slf4jLogger = LoggerFactory.getLogger(UWContext.class);
 	protected static final String SINK_NODE_NAME = "Robot";
 	private int sensorNodeCount;
 	private int sinkNodeCount;
@@ -68,7 +73,6 @@ public class UWContext extends AbstractContext implements UWConstants, Serializa
 	public static String PROP_DENSITY = "node-density";
 	public static EnvironmentModel emGlobalCost;
 	protected transient IPainter painterNode = null;
-	private int pathNumber;
 
 	public static int mapWidth;
 	public static int mapHeight;
@@ -100,20 +104,23 @@ public class UWContext extends AbstractContext implements UWConstants, Serializa
 		createSensorNodes();
 		// createMultipleSinkNodes();
 		theSinkNode = createSinkNode();
-
-		Random r = this.getRandom();
+		Random random = this.getRandom();
 		for (int i = 0; i < sip.getParameterInt(UWConstants.NUM_HOTSPOTS); i++) {
-			int randIndex = r.nextInt(this.sensorNodeCount);
+			int randIndex = random.nextInt(this.sensorNodeCount);
 			UWAgent agent = (UWAgent) this.getWorld().getSensorNodes().get(randIndex).getAgent();
+			// set the initial value of the data sensed by the agent sensors
 			agent.setValueOfData(100);
-			agent.setAgentVoI_DecayRate(0.4 + (0.7 - 0.4) * r.nextDouble());
+			// set the value of information at the data nodes for each node
+			agent.setAgentVoI_DecayRate(0.4 + (0.7 - 0.4) * random.nextDouble());
 			ArrayList<AbstractSensorAgent> neighbors = SensorRoutingHelper.getNeighbors(agent, this.getWorld());
-			if (sip.getParameterEnum(PathPlannerMethodology.class).equals(PathPlannerMethodology.PROBABLISTIC_GREEDY))
-				for (AbstractSensorAgent uwagent : neighbors) {
-					((UWAgent) agent).setValueOfData(70);
-					((UWAgent) agent).setAgentVoI_DecayRate(0.4 + (0.7 - 0.4) * r.nextDouble());
-					;
-				}
+
+			// if
+			// (sip.getParameterEnum(PathPlannerMethodology.class).equals(PathPlannerMethodology.PROBABLISTIC_GREEDY))
+			// for (AbstractSensorAgent uwagent : neighbors) {
+			// ((UWAgent) agent).setValueOfData(70);
+			// ((UWAgent) agent).setAgentVoI_DecayRate(0.4 + (0.7 - 0.4) *
+			// random.nextDouble());
+			// }
 		}
 
 		// create the paths
@@ -156,10 +163,10 @@ public class UWContext extends AbstractContext implements UWConstants, Serializa
 			}
 		}
 
-		// double Scale, double Velocity, int NAUVs, int VerticalNodes, int
-		// HorizontalNodes
-		GeneticAlgorithm GA1 = new GeneticAlgorithm(this.sensorWorld, sip.getParameterDouble(SINK_SPEED), sinkNodeCount,
-				rows, columns);
+//		// double Scale, double Velocity, int NAUVs, int VerticalNodes, int
+//		// HorizontalNodes
+//		GeneticAlgorithm GA1 = new GeneticAlgorithm(this.sensorWorld, sip.getParameterDouble(SINK_SPEED), sinkNodeCount,
+//				rows, columns);
 
 		// create the visual representations
 		if (sip.getParameterEnum(VisualDisplay.class) == VisualDisplay.YES) {
@@ -185,24 +192,27 @@ public class UWContext extends AbstractContext implements UWConstants, Serializa
 		double sinkNodeX = sip.getParameterDouble(constSensorNetwork.SensorDeployment_SinkNodeX);
 		double sinkNodeY = sip.getParameterDouble(constSensorNetwork.SensorDeployment_SinkNodeY);
 		Location sinkNodeLocation = new Location(sinkNodeX, sinkNodeY);
+		sinkNodeLocation = new Location(374, 35);
 		sinkNode.setName("UWMobile-Agent");
 		sinkNode.setLocation(sinkNodeLocation);
 		UWMobileAgent sinkAgent = new UWMobileAgent("SinkAgent", this.sensorWorld, sinkNodeLocation,
-				new Location(380, 40));
+				new Location(38, 335));
 		sinkAgent.setNode(sinkNode);
 		sinkAgent.setRand(this.getRandom());
 		sinkAgent.setPathPlannerMethodology(sip.getParameterEnum(PathPlannerMethodology.class));
 		sinkAgent.setSinkSpeed(sip.getParameterDouble(SINK_SPEED));
 
-//		AbstractPathCost pathCost = new PathLength();
-//		IHeuristic heuristic = new DistanceHeuristic(sinkAgent.getLocalDestination());
-//		PlannedPath path = sinkAgent.getPlannedPath();
-//		AStarPP aStar = new AStarPP(path, emGlobalCost, pathCost, heuristic, new MapLocationAccessibility());
-//		aStar.setReturnFirst(true);
-//		aStar.planPath(path, emGlobalCost);
-//
-//		TextUi.println(sinkAgent.getPlannedPath());
-//		sinkAgent.setPlannedPath(path);
+		// AbstractPathCost pathCost = new PathLength();
+		// IHeuristic heuristic = new
+		// DistanceHeuristic(sinkAgent.getLocalDestination());
+		// PlannedPath path = sinkAgent.getPlannedPath();
+		// AStarPP aStar = new AStarPP(path, emGlobalCost, pathCost, heuristic,
+		// new MapLocationAccessibility());
+		// aStar.setReturnFirst(true);
+		// aStar.planPath(path, emGlobalCost);
+		//
+		// TextUi.println(sinkAgent.getPlannedPath());
+		// sinkAgent.setPlannedPath(path);
 		sinkAgent.planPath();
 		sinkNode.setAgent(sinkAgent);
 		sensorWorld.setSinkNode(sinkNode);
@@ -245,6 +255,7 @@ public class UWContext extends AbstractContext implements UWConstants, Serializa
 	 * This method creates the underwater sensor nodes
 	 */
 	protected void createSensorNodes() {
+		Set<Location> sensorNodeLocations = new HashSet<>();
 		for (int i = 0; i < sensorNodeCount; i++) {
 			final SensorNode staticNode = new SensorNode();
 			staticNode.setName("S-" + String.format("%02d", i));
@@ -259,19 +270,29 @@ public class UWContext extends AbstractContext implements UWConstants, Serializa
 			// look for the initial location
 			Location initialLoc = new Location(getRandom().nextInt(sip.getParameterInt(MAP_WIDTH)),
 					getRandom().nextInt(sip.getParameterInt(MAP_HEIGHT)));
-			while (isLocationOccupied(initialLoc, emGlobalCost, PROP_OBSTACLE))
+			while (UWEnvironment.isLocationOccupied(initialLoc, emGlobalCost, PROP_OBSTACLE)){
 				initialLoc = new Location(getRandom().nextInt(sip.getParameterInt(MAP_WIDTH)),
 						getRandom().nextInt(sip.getParameterInt(MAP_HEIGHT)));
+			}
 			staticNode.setLocation(initialLoc);
-
 			staticNode.setAgent(staticNodeAgent);
 			staticNodeAgent.setNode(staticNode);
 			sensorWorld.addSensorNode(staticNode);
 			sensorWorld.getDirectory().addAgent(staticNodeAgent);
+			sensorNodeLocations.add(initialLoc);
 		}
+		
+		slf4jLogger.info(String.format("The locations for nodes are: %s", sensorNodeLocations));
 		// distribution of the sensor nodes if SensorArrangement is not
 		// Benchmark
 		distributeSensorNodes(sip);
+		for(SensorNode node: sensorWorld.getSensorNodes()){
+			if(UWEnvironment.isLocationOccupied(node.getLocation(), emGlobalCost, PROP_OBSTACLE)){
+				node.setEnabled(false);
+			}
+		}
+		
+		
 	}
 
 	/**
@@ -418,8 +439,7 @@ public class UWContext extends AbstractContext implements UWConstants, Serializa
 	private EnvironmentModel createEM(String obstacleMapFile, String backgroundMapFile, String backgroundColoredMapFile)
 			throws URISyntaxException {
 		File fileObstacles = new File(ClassLoader.getSystemClassLoader().getResource(obstacleMapFile).toURI());
-		LinearColorToValue lctv = new LinearColorToValue(0, 100);
-
+		LinearColorToValue lctv = new LinearColorToValue(0, 1);
 		EnvironmentModel retval = new EnvironmentModel("TheModel", 0, 0, sip.getParameterInt(MAP_WIDTH),
 				sip.getParameterInt(MAP_HEIGHT), 1, 1);
 		retval.createProperty(PROP_OBSTACLE);
@@ -437,7 +457,6 @@ public class UWContext extends AbstractContext implements UWConstants, Serializa
 			}
 		}
 
-		// retval.loadDataFromImage(PROP_OBSTACLE, fileObstacles, lctv);
 
 		// create the property for the heatmap
 		// retval.createProperty(PROP_DENSITY);
@@ -457,24 +476,5 @@ public class UWContext extends AbstractContext implements UWConstants, Serializa
 		return this.sensorWorld;
 	}
 
-	/**
-	 * Checks if a particular location is occupied or not.
-	 * 
-	 * @param loc
-	 * @param includeZones
-	 * @return
-	 */
-	public static boolean isLocationOccupied(Location loc, EnvironmentModel envModel, String property) {
-		if (loc == null)
-			return false;
 
-		double val = (double) envModel.getPropertyAt(property, loc.getX(), loc.getY());
-		// TextUi.println(val);
-		if (val > 0)
-			return true;
-
-		if (loc.getX() > UWContext.mapWidth || loc.getX() < 0 || loc.getY() > UWContext.mapHeight || loc.getY() < 0)
-			return true;
-		return false;
-	}
 }
