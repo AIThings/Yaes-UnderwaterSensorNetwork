@@ -1,5 +1,6 @@
 package agents.pathplanner;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -12,9 +13,10 @@ import yaes.world.physical.path.PPMTraversal;
 import yaes.world.physical.path.PlannedPath;
 import yaes.world.physical.path.ProgrammedPathMovement;
 
-public class AStarPlanner implements iAgentPathPlanner {
+public class AStarPlanner implements iAgentPathPlanner, Serializable {
+	private static final long serialVersionUID = 1L;
 
-    @Override
+	@Override
     public PPMTraversal planPath(UWMobileAgent agent, PlannedPath plannedpath) {
 
         SensorNode src = agent.getSensorWorld().getSensorNodes().get(0);

@@ -1,5 +1,6 @@
 package agents.pathplanner;
 
+import java.io.Serializable;
 import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -18,7 +19,8 @@ import yaes.world.physical.path.PPMTraversal;
 import yaes.world.physical.path.PlannedPath;
 import yaes.world.physical.path.ProgrammedPathMovement;
 
-public class QLearningPlanner implements iAgentPathPlanner {
+public class QLearningPlanner implements iAgentPathPlanner, Serializable {
+	private static final long serialVersionUID = 1L;
     private QLearning qLearning;
 
     @Override

@@ -32,7 +32,7 @@ public interface UWConstants
     public static final String ACCESSIBLE = "Accessible";
     public static final String OBSTACLES = "obstacle";
 
-    public static enum LearningMethod {
+    public static enum PathPlannerMethodology {
         QLEARNING_VISUAL,
         ASTAR,
         QLEARNING_OBSTACLES_VISUAL,

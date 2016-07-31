@@ -1,5 +1,6 @@
 package agents.pathplanner;
 
+import java.io.Serializable;
 import java.util.Random;
 
 import agents.UWMobileAgent;
@@ -8,8 +9,8 @@ import yaes.world.physical.path.PPMTraversal;
 import yaes.world.physical.path.PlannedPath;
 import yaes.world.physical.path.ProgrammedPathMovement;
 
-public class RandomPlanner implements iAgentPathPlanner {
-
+public class RandomPlanner implements iAgentPathPlanner, Serializable{
+	private static final long serialVersionUID = 1L;
     @Override
     public PPMTraversal planPath(UWMobileAgent agent, PlannedPath plannedpath) {
         Random rand = agent.getRand();

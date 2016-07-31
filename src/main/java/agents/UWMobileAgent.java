@@ -5,7 +5,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 
+import agents.pathplanner.AStarPlanner;
 import agents.pathplanner.GreedyPlanner;
+import agents.pathplanner.LawnMowerPlanner;
+import agents.pathplanner.QLearningPlanner;
+import agents.pathplanner.RandomPlanner;
 import agents.pathplanner.iAgentPathPlanner;
 import pathplanning.DStarLitePP;
 import pathplanning.Learning.Action;
@@ -36,15 +40,13 @@ public class UWMobileAgent extends AbstractSensorAgent
     private double speed;
     private PlannedPath plannedpath;
     private Location nextLocation;
-
     // PathTraversal traversal = new PathTraversal(path);
     private ProgressState state;
     public static HashMap<ProgressState, ArrayList<Action>> stateActionTable;
     // private ArrayList<Location> pathUWMobileAgent;
     private Random rand;
     protected PPMTraversal ppmtraversal;
-
-    private LearningMethod method = LearningMethod.LAWNMOVER;
+    private PathPlannerMethodology method;
     private double VoI;
     SensorNode src = getSensorWorld().getSensorNodes().get(0);
     SensorNode dest = getSensorWorld().getSensorNodes()
@@ -55,12 +57,15 @@ public class UWMobileAgent extends AbstractSensorAgent
         super(name, sensorWorld);
         this.setStartLocation(startloc);
         this.setLocalDestination(destLoc);
-
         this.plannedpath = new PlannedPath(this.getStartLocation(),
                 this.getLocalDestination());
+        
+    }
 
-        switch (this.method) {
+    public void planPath(){
+        switch (method) {
         case ASTAR:
+        	this.pathplanner = new AStarPlanner();
             break;
         case ASTAR_OBSTACLES:
             break;
@@ -70,10 +75,12 @@ public class UWMobileAgent extends AbstractSensorAgent
             this.pathplanner = new GreedyPlanner();
             break;
         case LAWNMOVER:
+        	this.pathplanner = new LawnMowerPlanner();
             break;
         case PROBABLISTIC_GREEDY:
             break;
         case QLEARNING:
+        	this.pathplanner = new QLearningPlanner();
             break;
         case QLEARNING_OBSTACLES:
             break;
@@ -82,19 +89,23 @@ public class UWMobileAgent extends AbstractSensorAgent
         case QLEARNING_VISUAL:
             break;
         case RANDOM:
+        	this.pathplanner = new RandomPlanner();
             break;
         default:
             break;
-
         }
+        
+        ppmtraversal = this.pathplanner.planPath(this, plannedpath);
     }
-
+    
     /**
      * The action for a mobile agent
      */
     @Override
     public void action() {
+    	//collect the messages and transmits if required
         super.action();
+        //the mobile path movement
         pathplanner.move(this);
     }
 
@@ -216,7 +227,7 @@ public class UWMobileAgent extends AbstractSensorAgent
     /**
      * @return the method
      */
-    public LearningMethod getMethod() {
+    public PathPlannerMethodology getMethod() {
         return method;
     }
 
@@ -224,7 +235,7 @@ public class UWMobileAgent extends AbstractSensorAgent
      * @param method
      *            the method to set
      */
-    public void setMethod(LearningMethod method) {
+    public void setPathPlannerMethodology(PathPlannerMethodology method) {
         this.method = method;
     }
 

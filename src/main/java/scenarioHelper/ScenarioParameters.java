@@ -36,14 +36,14 @@ public class ScenarioParameters implements UWConstants, constSensorNetwork {
         model.setParameter(constSensorNetwork.SensorDeployment_SensorRange,
                 70.0);
         model.setParameter(
-                constSensorNetwork.SensorDeployment_TransmissionRange, 180.0); // for
+                constSensorNetwork.SensorDeployment_TransmissionRange, 70.0); // for
                                                                                // 100
                                                                                // nodes
                                                                                // keep
                                                                                // it
                                                                                // 70
         model.setParameter(constSensorNetwork.SensorDeployment_SensorNodeCount,
-                100);
+                50);
     }
 
     /**

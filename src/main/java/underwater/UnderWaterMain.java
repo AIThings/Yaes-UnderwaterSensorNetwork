@@ -65,7 +65,7 @@ public class UnderWaterMain implements Serializable, UWConstants {
     private static final String MENU_CONTINUOUS_SAMPLING_YES =
             "With Continuous Node Sampling - YES";
 
-    private static LearningMethod method = LearningMethod.QLEARNING_VISUAL;
+    private static PathPlannerMethodology method = PathPlannerMethodology.QLEARNING_VISUAL;
     private static int sampling = 1;
 
     // creation of output directories
@@ -86,9 +86,6 @@ public class UnderWaterMain implements Serializable, UWConstants {
         TextUi.println(Version.versionString());
         final List<String> menu = new ArrayList<String>();
         final List<String> menu2 = new ArrayList<String>();
-
-        String result = null;
-        String result2 = null;
 
         String defaultChoice = UnderWaterMain.MENU_SETUP_QLEARNING;
         // menu.add(UnderWaterMain.MENU_SETUP_RUN);
@@ -112,43 +109,40 @@ public class UnderWaterMain implements Serializable, UWConstants {
         menu2.add(MENU_CONTINUOUS_SAMPLING_YES);
         menu2.add(MENU_CONTINUOUS_SAMPLING_NO);
 
-        if (result == null) {
-            result = TextUi.menu(menu, defaultChoice, "Choose:");
-            if (result2 == null)
-                result2 = TextUi.menu(menu2, defaultChoice2, "Choose:");
-            // result2 = defaultChoice2;
-        }
+        
+        String simulationChoice = TextUi.menu(menu, defaultChoice, "Choose:");
+//        String result2 = TextUi.menu(menu2, defaultChoice2, "Choose:");
+//
+//        switch (result2) {
+//        case UnderWaterMain.MENU_CONTINUOUS_SAMPLING_YES:
+//            sampling = 1;
+//            break;
+//        case UnderWaterMain.MENU_CONTINUOUS_SAMPLING_NO:
+//            sampling = 0;
+//            break;
+//        default:
+//            break;
+//
+//        }
 
-        switch (result2) {
-        case UnderWaterMain.MENU_CONTINUOUS_SAMPLING_YES:
-            sampling = 1;
-            break;
-        case UnderWaterMain.MENU_CONTINUOUS_SAMPLING_NO:
-            sampling = 0;
-            break;
-        default:
-            break;
-
-        }
-
-        switch (result) {
+        switch (simulationChoice) {
         case UnderWaterMain.MENU_SETUP_LAWNMOVER:
-            method = LearningMethod.LAWNMOVER;
+            method = PathPlannerMethodology.LAWNMOVER;
             doSimpleRun();
             break;
 
         case UnderWaterMain.MENU_SETUP_QLEARNING:
-            method = LearningMethod.QLEARNING;
+            method = PathPlannerMethodology.QLEARNING;
             doSimpleRun();
             break;
 
         case UnderWaterMain.MENU_SETUP_RANDOM:
-            method = LearningMethod.RANDOM;
+            method = PathPlannerMethodology.RANDOM;
             doSimpleRun();
             break;
 
         case UnderWaterMain.MENU_SETUP_GREEDY:
-            method = LearningMethod.GREEDY_LEARNING;
+            method = PathPlannerMethodology.GREEDY_LEARNING;
             doSimpleRun();
             break;
 
@@ -157,7 +151,7 @@ public class UnderWaterMain implements Serializable, UWConstants {
         // doSimpleRun();
         // break;
         case UnderWaterMain.MENU_SETUP_ASTAR:
-            method = LearningMethod.ASTAR;
+            method = PathPlannerMethodology.ASTAR;
             doSimpleRun();
             break;
         // case UnderWaterMain.MENU_SETUP_ASTAR_OBSTACLES:
@@ -291,7 +285,7 @@ public class UnderWaterMain implements Serializable, UWConstants {
      */
     private static void compareVariableSpeed(SimulationInput model) {
         ExperimentPackage pack = new ExperimentPackage(outputDir, graphDir);
-        model.setParameter(LearningMethod.ASTAR);
+        model.setParameter(PathPlannerMethodology.ASTAR);
         pack.setModel(model);
         ParameterSweep sweepDiscrete = getPathPlannerTypes();
         pack.addParameterSweep(sweepDiscrete);
@@ -318,7 +312,7 @@ public class UnderWaterMain implements Serializable, UWConstants {
 
     private static void compareVariableHotSpots(SimulationInput model) {
         ExperimentPackage pack = new ExperimentPackage(outputDir, graphDir);
-        model.setParameter(LearningMethod.ASTAR);
+        model.setParameter(PathPlannerMethodology.ASTAR);
         pack.setModel(model);
         ParameterSweep sweepDiscrete = getPathPlannerTypes();
         pack.addParameterSweep(sweepDiscrete);
@@ -411,19 +405,19 @@ public class UnderWaterMain implements Serializable, UWConstants {
         ScenarioDistinguisher sd = null;
         // The LawnMover Path Planner
         sd = new ScenarioDistinguisher("LPP");
-        sd.setDistinguisher(LearningMethod.LAWNMOVER);
+        sd.setDistinguisher(PathPlannerMethodology.LAWNMOVER);
         sweepDiscrete.addDistinguisher(sd);
         // The Random Movement Path Planner
         sd = new ScenarioDistinguisher("RPP");
-        sd.setDistinguisher(LearningMethod.RANDOM);
+        sd.setDistinguisher(PathPlannerMethodology.RANDOM);
         sweepDiscrete.addDistinguisher(sd);
         // The GreedyMovement Path Planner
         sd = new ScenarioDistinguisher("GPP");
-        sd.setDistinguisher(LearningMethod.GREEDY_LEARNING);
+        sd.setDistinguisher(PathPlannerMethodology.GREEDY_LEARNING);
         sweepDiscrete.addDistinguisher(sd);
         // The GreedyMovement Path Planner
         sd = new ScenarioDistinguisher("PROB-GPP");
-        sd.setDistinguisher(LearningMethod.PROBABLISTIC_GREEDY);
+        sd.setDistinguisher(PathPlannerMethodology.PROBABLISTIC_GREEDY);
         sweepDiscrete.addDistinguisher(sd);
         return sweepDiscrete;
     }
@@ -439,17 +433,17 @@ public class UnderWaterMain implements Serializable, UWConstants {
         ScenarioDistinguisher sd = null;
         // Decay Time = 0.04
         sd = new ScenarioDistinguisher("Tau-0.04");
-        sd.setDistinguisher(LearningMethod.ASTAR);
+        sd.setDistinguisher(PathPlannerMethodology.ASTAR);
         sd.setDistinguisher(UWConstants.DECAYTIME, 0.04);
         sweepDiscrete.addDistinguisher(sd);
         // Decay Time = 0.2
         sd = new ScenarioDistinguisher("Tau-0.2");
-        sd.setDistinguisher(LearningMethod.ASTAR);
+        sd.setDistinguisher(PathPlannerMethodology.ASTAR);
         sd.setDistinguisher(UWConstants.DECAYTIME, 0.2);
         sweepDiscrete.addDistinguisher(sd);
         // Decay Time = 1.0
         sd = new ScenarioDistinguisher("Tau-1.0");
-        sd.setDistinguisher(LearningMethod.ASTAR);
+        sd.setDistinguisher(PathPlannerMethodology.ASTAR);
         sd.setDistinguisher(UWConstants.DECAYTIME, 1.0);
         sweepDiscrete.addDistinguisher(sd);
         return sweepDiscrete;

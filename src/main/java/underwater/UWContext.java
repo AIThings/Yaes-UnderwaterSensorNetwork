@@ -98,7 +98,7 @@ public class UWContext extends AbstractContext implements UWConstants, Serializa
 
 		// create the sensor nodes and sinkNode
 		createSensorNodes();
-		createMultipleSinkNodes();
+		// createMultipleSinkNodes();
 		theSinkNode = createSinkNode();
 
 		Random r = this.getRandom();
@@ -108,7 +108,7 @@ public class UWContext extends AbstractContext implements UWConstants, Serializa
 			agent.setValueOfData(100);
 			agent.setAgentVoI_DecayRate(0.4 + (0.7 - 0.4) * r.nextDouble());
 			ArrayList<AbstractSensorAgent> neighbors = SensorRoutingHelper.getNeighbors(agent, this.getWorld());
-			if (sip.getParameterEnum(LearningMethod.class).equals(LearningMethod.PROBABLISTIC_GREEDY))
+			if (sip.getParameterEnum(PathPlannerMethodology.class).equals(PathPlannerMethodology.PROBABLISTIC_GREEDY))
 				for (AbstractSensorAgent uwagent : neighbors) {
 					((UWAgent) agent).setValueOfData(70);
 					((UWAgent) agent).setAgentVoI_DecayRate(0.4 + (0.7 - 0.4) * r.nextDouble());
@@ -191,18 +191,19 @@ public class UWContext extends AbstractContext implements UWConstants, Serializa
 				new Location(380, 40));
 		sinkAgent.setNode(sinkNode);
 		sinkAgent.setRand(this.getRandom());
-		sinkAgent.setMethod(sip.getParameterEnum(LearningMethod.class));
+		sinkAgent.setPathPlannerMethodology(sip.getParameterEnum(PathPlannerMethodology.class));
 		sinkAgent.setSinkSpeed(sip.getParameterDouble(SINK_SPEED));
 
-		AbstractPathCost pathCost = new PathLength();
-		IHeuristic heuristic = new DistanceHeuristic(sinkAgent.getLocalDestination());
-		PlannedPath path = sinkAgent.getPlannedPath();
-		AStarPP aStar = new AStarPP(path, emGlobalCost, pathCost, heuristic, new MapLocationAccessibility());
-		aStar.setReturnFirst(true);
-		aStar.planPath(path, emGlobalCost);
-
-		TextUi.println(sinkAgent.getPlannedPath());
-		sinkAgent.setPlannedPath(path);
+//		AbstractPathCost pathCost = new PathLength();
+//		IHeuristic heuristic = new DistanceHeuristic(sinkAgent.getLocalDestination());
+//		PlannedPath path = sinkAgent.getPlannedPath();
+//		AStarPP aStar = new AStarPP(path, emGlobalCost, pathCost, heuristic, new MapLocationAccessibility());
+//		aStar.setReturnFirst(true);
+//		aStar.planPath(path, emGlobalCost);
+//
+//		TextUi.println(sinkAgent.getPlannedPath());
+//		sinkAgent.setPlannedPath(path);
+		sinkAgent.planPath();
 		sinkNode.setAgent(sinkAgent);
 		sensorWorld.setSinkNode(sinkNode);
 		return sinkNode;
@@ -221,7 +222,7 @@ public class UWContext extends AbstractContext implements UWConstants, Serializa
 
 			sinkAgent.setNode(sinkNode);
 			sinkAgent.setRand(this.getRandom());
-			sinkAgent.setMethod(sip.getParameterEnum(LearningMethod.class));
+			sinkAgent.setPathPlannerMethodology(sip.getParameterEnum(PathPlannerMethodology.class));
 			sinkAgent.setSinkSpeed(sip.getParameterDouble(SINK_SPEED));
 
 			AbstractPathCost pathCost = new PathLength();

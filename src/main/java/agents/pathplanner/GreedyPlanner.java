@@ -1,5 +1,6 @@
 package agents.pathplanner;
 
+import java.io.Serializable;
 import java.util.Comparator;
 import java.util.Map;
 import java.util.SortedSet;
@@ -19,7 +20,8 @@ import yaes.world.physical.path.ProgrammedPathMovement;
  * @author SaadKhan
  *
  */
-public class GreedyPlanner implements iAgentPathPlanner {
+public class GreedyPlanner implements iAgentPathPlanner, Serializable{
+	private static final long serialVersionUID = 1L;
     private SortedSet<Map.Entry<UWAgent, Double>> voiStateMap =
             new TreeSet<Map.Entry<UWAgent, Double>>(
                     new Comparator<Map.Entry<UWAgent, Double>>() {
