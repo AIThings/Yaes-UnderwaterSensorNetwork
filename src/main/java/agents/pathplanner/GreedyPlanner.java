@@ -35,7 +35,7 @@ public class GreedyPlanner implements iAgentPathPlanner, Serializable{
     @Override
     public PPMTraversal planPath(UWMobileAgent agent, PlannedPath plannedpath) {
         Location localDestination =
-                agent.getLocalDestination();
+                this.voiStateMap.first().getKey().getNode().getLocation();
         double speed = agent.getSinkSpeed();
         double speedStdDev = 0.0;
         ProgrammedPathMovement ppm = PPMGenerator.followPathWithConstantSpeed(
