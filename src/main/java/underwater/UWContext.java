@@ -61,7 +61,7 @@ import yaes.world.physical.pathplanning.DistanceHeuristic;
  */
 public class UWContext extends AbstractContext implements UWConstants, Serializable {
 	private static final long serialVersionUID = -1L;
-    private final Logger slf4jLogger = LoggerFactory.getLogger(UWContext.class);
+    private final static Logger slf4jLogger = LoggerFactory.getLogger(UWContext.class);
 	protected static final String SINK_NODE_NAME = "Robot";
 	private int sensorNodeCount;
 	private int sinkNodeCount;
@@ -192,7 +192,18 @@ public class UWContext extends AbstractContext implements UWConstants, Serializa
 		double sinkNodeX = sip.getParameterDouble(constSensorNetwork.SensorDeployment_SinkNodeX);
 		double sinkNodeY = sip.getParameterDouble(constSensorNetwork.SensorDeployment_SinkNodeY);
 		Location sinkNodeLocation = new Location(sinkNodeX, sinkNodeY);
-		sinkNodeLocation = new Location(374, 35);
+		
+		int sensorNodeCount = sensorWorld.getSensorNodes().size();
+		for (int counter = 0; counter < sensorNodeCount - 1; counter++) {
+			SensorNode node = sensorWorld.getSensorNodes().get(counter);
+			if (node.isEnabled()) {
+				sinkNodeLocation = node.getLocation();
+				break;
+			}
+		}
+		
+		
+		
 		sinkNode.setName("UWMobile-Agent");
 		sinkNode.setLocation(sinkNodeLocation);
 		UWMobileAgent sinkAgent = new UWMobileAgent("SinkAgent", this.sensorWorld, sinkNodeLocation,
@@ -287,6 +298,10 @@ public class UWContext extends AbstractContext implements UWConstants, Serializa
 		// Benchmark
 		distributeSensorNodes(sip);
 		for(SensorNode node: sensorWorld.getSensorNodes()){
+			// hack for non reachable path nodes
+			if(node.getName().equals("S-67") || node.getName().equals("S-68") || node.getName().equals("S-92")){
+				continue;
+			}
 			if(UWEnvironment.isLocationOccupied(node.getLocation(), emGlobalCost, PROP_OBSTACLE)){
 				node.setEnabled(false);
 			}
